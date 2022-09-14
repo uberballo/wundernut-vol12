@@ -15,7 +15,7 @@ fn reveal_hidden_message(filename: String, new_file: &String) -> std::io::Result
     let (w, h) = image.dimensions();
     let mut output = RgbImage::new(w, h);
 
-    for (x, y, mut pixel) in image.pixels() {
+    for (x, y, pixel) in image.pixels() {
         if pixel[2] != 229 {
             output.put_pixel(x, y, Rgb([0, 0, 0]));
         } else {
@@ -23,6 +23,7 @@ fn reveal_hidden_message(filename: String, new_file: &String) -> std::io::Result
         }
     }
 
+    output = image::imageops::resize(&output, 4000, 1200, image::imageops::Triangle);
     output.save(new_file).unwrap();
     Ok(())
 }
@@ -42,8 +43,11 @@ fn solve_caesar_cipher(secret_text: String, rotation: u8) -> String {
     let mut res: Vec<char> = vec![' '; secret_text.len()];
 
     for (i, character) in secret_text.chars().enumerate() {
-        res[i] =
+        res[i] = if character >= 'A' && character <= 'Z' {
             (((((character as u8) - ('A' as u8)) + (26 - rotation)) % 26) + ('A' as u8)) as char
+        } else {
+            character
+        }
     }
     res.into_iter().collect()
 }
