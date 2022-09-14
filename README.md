@@ -26,10 +26,10 @@ Have rust installed (I'm using 1.65.nightly) and run the following:
 sudo apt-get install libleptonica-dev libtesseract-dev clang tesseract-ocr-eng
 cargo run
 ``` 
-## Issues  
-It doesn't work correctly. Passing the created png to some better OCR will result in the correct decrypted text. So the result is bit funky, but the idea is there.   
+
 
 ## Improvements  
 * The dockerfile could be optimized  
-* Fix the OCR. The result isn't correct.  
+* ~~Fix the OCR. The result isn't correct.~~  Done.
+* It's bit slow 
 * Remove hardcoded parts (Leptess resolution, caesar cipher rotations, etc.)  
