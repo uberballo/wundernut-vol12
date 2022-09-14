@@ -52,6 +52,13 @@ fn solve_caesar_cipher(secret_text: String, rotation: u8) -> String {
     res.into_iter().collect()
 }
 
+#[test]
+fn caesar_cipher_works() {
+    let input = String::from("OCDNDNVNZXMZOGDNOJANKZGGNOCVODCVQZDIQZIOZYHT");
+    let expected = String::from("THISISASECRETLISTOFSPELLSTHATIHAVEINVENTEDMY");
+    assert_eq!(solve_caesar_cipher(input, 21), expected);
+}
+
 fn solve_encrypted_parchment() -> std::io::Result<Vec<String>> {
     let filename = String::from("parchment.png");
     let new_filename = String::from("uusi.png");
