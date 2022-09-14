@@ -14,15 +14,18 @@ fn reveal_hidden_message(filename: String, new_file: &String) -> std::io::Result
     let image = image::open(filename).expect("File not found.");
     let (w, h) = image.dimensions();
     let mut output = RgbImage::new(w, h);
+    let black_color = Rgb([0, 0, 0]);
+    let white_color = Rgb([255, 255, 255]);
 
     for (x, y, pixel) in image.pixels() {
         if pixel[2] != 229 {
-            output.put_pixel(x, y, Rgb([0, 0, 0]));
+            output.put_pixel(x, y, black_color);
         } else {
-            output.put_pixel(x, y, Rgb([255, 255, 255]));
+            output.put_pixel(x, y, white_color);
         }
     }
 
+    // Don't change the resolution. It will otherwise break.
     output = image::imageops::resize(&output, 4000, 1200, image::imageops::Triangle);
     output.save(new_file).unwrap();
     Ok(())
